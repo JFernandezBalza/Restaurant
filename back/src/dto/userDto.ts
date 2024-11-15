@@ -1,14 +1,19 @@
-export interface UserRegisterDTO {
+export interface IUserRegisterDTO {
   name: string;
   password: string;
   email: string;
-  birthDate: number;
-  address: string;
+  birthdate: Date;
   DNI: number;
-  active: boolean;
+  username: string;
 }
 
-export interface UserLoginDTO {
+export interface IUserLoginDTO {
   email: string;
   password: string;
+}
+
+export interface IUserDTO {
+  id: number;
+  name: string;
+  email: string;
 }

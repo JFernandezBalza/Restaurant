@@ -10,38 +10,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUsersService = exports.registerUsersService = exports.getUsersByIdService = exports.getUsersService = void 0;
-const getUsersService = () => __awaiter(void 0, void 0, void 0, function* () { });
+const credentialsService_1 = require("./credentialsService");
+const users = [];
+let id = 1;
+const getUsersService = () => __awaiter(void 0, void 0, void 0, function* () {
+    return users.map((user) => {
+        return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+        };
+    });
+});
 exports.getUsersService = getUsersService;
 const getUsersByIdService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    return id;
+    const userFound = users.find((user) => user.id === parseInt(id, 10));
+    if (!userFound)
+        throw new Error(`El usuario con id: ${id} no se encontro`);
+    else
+        return {
+            id: userFound.id,
+            name: userFound.name,
+            email: userFound.email,
+        };
 });
 exports.getUsersByIdService = getUsersByIdService;
 const registerUsersService = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    return user;
+    const idCredentialsUser = yield (0, credentialsService_1.getCredentialsService)(user.name, user.password);
+    const newUser = {
+        id: id++,
+        name: user.name,
+        email: user.email,
+        birthdate: new Date(user.birthdate),
+        nDni: user.DNI,
+        credentialsId: idCredentialsUser,
+    };
+    users.push(newUser);
+    return newUser;
 });
 exports.registerUsersService = registerUsersService;
 const loginUsersService = (userCredentials) => __awaiter(void 0, void 0, void 0, function* () {
     return userCredentials;
 });
 exports.loginUsersService = loginUsersService;
-// let users: IUser[] = [];
-// let id: number = 1;
-// export const createUsersService = async (userData: UserDto): Promise<IUser> => {
-//   const newUser: IUser = {
-//     id,
-//     name: userData.name,
-//     email: userData.email,
-//     active: userData.active,
-//   };
-//   users.push(newUser);
-//   id++;
-//   return newUser;
-// };
-// export const getUsersService = async (): Promise<IUser[]> => {
-//   return users;
-// };
-// export const deleteUsersService = async (id: number): Promise<void> => {
-//   users = users.filter((user: IUser) => {
-//     return user.id !== id;
-//   });
-// };

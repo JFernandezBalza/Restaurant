@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { AppointmentRegisterDTO } from "../dto/AppointmentDTO";
+import { IAppointmentRegisterDTO } from "../dto/AppointmentDTO";
 import {
   cancelStatusAppointmentsController,
   getAppointmentsByIdController,
@@ -17,7 +17,7 @@ appointmentRouter.get("/:id", (req: Request<{ id: string }>, res: Response) =>
 );
 appointmentRouter.post(
   "/schedule",
-  (req: Request<unknown, unknown, AppointmentRegisterDTO>, res: Response) =>
+  (req: Request<unknown, unknown, IAppointmentRegisterDTO>, res: Response) =>
     registerAppointmentsController(req, res)
 );
 appointmentRouter.put(

@@ -9,8 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cancelStatusAppointmentsController = exports.registerAppointmentsController = exports.getAppointmentsByIdController = exports.getAppointmentsController = void 0;
+exports.cancelStatusAppointmentsController = exports.registerAppointmentsController = exports.getAppointmentsByIdController = exports.getAppointmentsController = exports.handleErrorResponse = void 0;
 const appointmentsService_1 = require("../services/appointmentsService");
+const handleErrorResponse = (error, res, message) => {
+    const errorMessage = {
+        message: message,
+        detail: error instanceof Error ? error.message : "Error desconocido",
+    };
+    res.status(400).json(errorMessage);
+};
+exports.handleErrorResponse = handleErrorResponse;
 const getAppointmentsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const serviceResponse = yield (0, appointmentsService_1.getAppointmentsService)();
@@ -20,10 +28,7 @@ const getAppointmentsController = (req, res) => __awaiter(void 0, void 0, void 0
         });
     }
     catch (error) {
-        res.status(500).json({
-            message: "Error al obtener el listado de turnos",
-            error: error,
-        });
+        (0, exports.handleErrorResponse)(error, res, "Error al obtener todas las citas");
     }
 });
 exports.getAppointmentsController = getAppointmentsController;
@@ -37,31 +42,20 @@ const getAppointmentsByIdController = (req, res) => __awaiter(void 0, void 0, vo
         });
     }
     catch (error) {
-        res.status(500).json({
-            message: "Error al obtener el turno",
-            error: error,
-        });
+        (0, exports.handleErrorResponse)(error, res, "Error al obtener la cita del turno especifico");
     }
 });
 exports.getAppointmentsByIdController = getAppointmentsByIdController;
 const registerAppointmentsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const appointmentData = {
-        date: new Date(req.body.date),
-        time: req.body.time,
-        status: "Active",
-    };
     try {
-        const serviceResponse = yield (0, appointmentsService_1.registerAppointmentsService)(appointmentData);
+        const serviceResponse = yield (0, appointmentsService_1.registerAppointmentsService)(req.body);
         res.status(200).json({
             message: "Agendar un nuevo turno",
             data: serviceResponse,
         });
     }
     catch (error) {
-        res.status(500).json({
-            message: "Error al agendar el nuevo turno",
-            error: error,
-        });
+        (0, exports.handleErrorResponse)(error, res, "Error al agendar la nueva cita");
     }
 });
 exports.registerAppointmentsController = registerAppointmentsController;
@@ -75,10 +69,7 @@ const cancelStatusAppointmentsController = (req, res) => __awaiter(void 0, void 
         });
     }
     catch (error) {
-        res.status(500).json({
-            message: "Error al obtener el listado de turnos",
-            error: error,
-        });
+        (0, exports.handleErrorResponse)(error, res, "Error al cancelar la cita");
     }
 });
 exports.cancelStatusAppointmentsController = cancelStatusAppointmentsController;

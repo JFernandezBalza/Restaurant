@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUsersController = exports.registerUsersController = exports.getUsersByIdController = exports.getUsersController = void 0;
 const usersService_1 = require("../services/usersService");
+const appointmentsControllers_1 = require("./appointmentsControllers");
 const getUsersController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const serviceResponse = yield (0, usersService_1.getUsersService)();
@@ -20,10 +21,7 @@ const getUsersController = (req, res) => __awaiter(void 0, void 0, void 0, funct
         });
     }
     catch (error) {
-        res.status(500).json({
-            message: "Error en la aplicación",
-            error: error,
-        });
+        (0, appointmentsControllers_1.handleErrorResponse)(error, res, "Error al obtener todos los usuarios");
     }
 });
 exports.getUsersController = getUsersController;
@@ -37,10 +35,7 @@ const getUsersByIdController = (req, res) => __awaiter(void 0, void 0, void 0, f
         });
     }
     catch (error) {
-        res.status(500).json({
-            message: "Error en la aplicación",
-            error: error,
-        });
+        (0, appointmentsControllers_1.handleErrorResponse)(error, res, "Error al obtener el usuario especifico");
     }
 });
 exports.getUsersByIdController = getUsersByIdController;
@@ -53,10 +48,7 @@ const registerUsersController = (req, res) => __awaiter(void 0, void 0, void 0, 
         });
     }
     catch (error) {
-        res.status(500).json({
-            message: "Error en la aplicación",
-            error: error,
-        });
+        (0, appointmentsControllers_1.handleErrorResponse)(error, res, "Error al registrar el nuevo usuario");
     }
 });
 exports.registerUsersController = registerUsersController;
@@ -69,24 +61,7 @@ const loginUsersController = (req, res) => __awaiter(void 0, void 0, void 0, fun
         });
     }
     catch (error) {
-        res.status(500).json({
-            message: "Error en la aplicación",
-            error: error,
-        });
+        (0, appointmentsControllers_1.handleErrorResponse)(error, res, "Error al loguear al usuario");
     }
 });
 exports.loginUsersController = loginUsersController;
-// export const createUsers = async (req: Request, res: Response) => {
-//   const { name, email, active } = req.body;
-//   const newUser: IUser = await createUsersService({ name, email, active });
-//   res.status(201).json(newUser);
-// };
-// export const getUsers = async (req: Request, res: Response) => {
-//   const users: IUser[] = await getUsersService();
-//   res.status(200).json(users);
-// };
-// export const deleteUsers = async (req: Request, res: Response) => {
-//   const { id } = req.body;
-//   await deleteUsersService(id);
-//   res.status(200).json({ message: "Eliminado correctamente" });
-// };

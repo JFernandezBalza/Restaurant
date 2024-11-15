@@ -1,7 +1,12 @@
-type IAppointments = {
+export interface IAppointment{
   id: number;
-  fecha: Date;
-  active: boolean;
-};
+  date: Date;
+  time: string;
+  userId: number;
+  status: Status
+}
 
-export default IAppointments;
+export enum Status{
+  active = "active",
+  canceled = "canceled",
+}

@@ -1,11 +1,19 @@
 import { Request, Response } from "express";
-import { AppointmentRegisterDTO } from "../dto/AppointmentDTO";
+import { IAppointmentRegisterDTO } from "../dto/AppointmentDTO";
 import {
   cancelStatusAppointmentsService,
   getAppointmentsByIdService,
   getAppointmentsService,
   registerAppointmentsService,
 } from "../services/appointmentsService";
+
+export const handleErrorResponse= (error: unknown, res: Response, message: string): void => {
+  const errorMessage= {
+    message: message,
+    detail: error instanceof Error ? error.message: "Error desconocido",
+  }
+  res.status(400).json(errorMessage);
+}
 
 export const getAppointmentsController = async (
   req: Request,
@@ -18,11 +26,8 @@ export const getAppointmentsController = async (
       data: serviceResponse,
     });
   } catch (error) {
-    res.status(500).json({
-      message: "Error al obtener el listado de turnos",
-      error: error,
-    });
-  }
+handleErrorResponse(error, res, "Error al obtener todas las citas");
+    }
 };
 
 export const getAppointmentsByIdController = async (
@@ -37,36 +42,26 @@ export const getAppointmentsByIdController = async (
       data: serviceResponse,
     });
   } catch (error) {
-    res.status(500).json({
-      message: "Error al obtener el turno",
-      error: error,
-    });
-  }
-};
+    handleErrorResponse(error, res, "Error al obtener la cita del turno especifico");
+        }
+    };
 
 export const registerAppointmentsController = async (
-  req: Request<unknown, unknown, AppointmentRegisterDTO>,
+  req: Request<unknown, unknown, IAppointmentRegisterDTO>,
   res: Response
 ): Promise<void> => {
-  const appointmentData: AppointmentRegisterDTO = {
-    date: new Date(req.body.date),
-    time: req.body.time,
-    status: "active",
-  };
+
   try {
-    const serviceResponse: AppointmentRegisterDTO =
-      await registerAppointmentsService(appointmentData);
+    const serviceResponse: IAppointmentRegisterDTO =
+      await registerAppointmentsService(req.body);
     res.status(200).json({
       message: "Agendar un nuevo turno",
       data: serviceResponse,
     });
   } catch (error) {
-    res.status(500).json({
-      message: "Error al agendar el nuevo turno",
-      error: error,
-    });
-  }
-};
+    handleErrorResponse(error, res, "Error al agendar la nueva cita"); 
+        }
+    };
 
 export const cancelStatusAppointmentsController = async (
   req: Request<{ id: string }>,
@@ -80,9 +75,6 @@ export const cancelStatusAppointmentsController = async (
       data: serviceResponse,
     });
   } catch (error) {
-    res.status(500).json({
-      message: "Error al obtener el listado de turnos",
-      error: error,
-    });
-  }
-};
+    handleErrorResponse(error, res, "Error al cancelar la cita"); 
+        }
+    };

@@ -10,17 +10,42 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cancelStatusAppointmentsService = exports.registerAppointmentsService = exports.getAppointmentsByIdService = exports.getAppointmentsService = void 0;
-const getAppointmentsService = () => __awaiter(void 0, void 0, void 0, function* () { });
+const IAppointments_1 = require("../interface/IAppointments");
+const usersService_1 = require("./usersService");
+const appointmentList = [];
+let id = 1;
+const getAppointmentsService = () => __awaiter(void 0, void 0, void 0, function* () {
+    return appointmentList;
+});
 exports.getAppointmentsService = getAppointmentsService;
 const getAppointmentsByIdService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    return id;
+    const appointmentFound = appointmentList.find(appointmen => appointmen.id === parseInt(id, 10));
+    if (!appointmentFound)
+        throw new Error(`La cita con el id ${id} no fue encontrada`);
+    else
+        return appointmentFound;
 });
 exports.getAppointmentsByIdService = getAppointmentsByIdService;
 const registerAppointmentsService = (appointmentData) => __awaiter(void 0, void 0, void 0, function* () {
-    return appointmentData;
+    const userFound = yield (0, usersService_1.getUsersByIdService)(appointmentData.userId.toString());
+    if (!userFound)
+        throw new Error(`El usuario con el id: ${appointmentData.userId} no existe`);
+    const newAppointments = {
+        id: id++,
+        date: new Date(appointmentData.date),
+        time: appointmentData.time,
+        status: IAppointments_1.Status.active,
+        userId: appointmentData.userId
+    };
+    appointmentList.push(newAppointments);
+    return newAppointments;
 });
 exports.registerAppointmentsService = registerAppointmentsService;
 const cancelStatusAppointmentsService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    return id;
+    const appointmentFound = appointmentList.find(appointmen => appointmen.id === parseInt(id, 10));
+    if (!appointmentFound)
+        throw new Error(`La cita con el id ${id} no fue encontrada`);
+    appointmentFound.status = IAppointments_1.Status.canceled;
+    return appointmentFound;
 });
 exports.cancelStatusAppointmentsService = cancelStatusAppointmentsService;

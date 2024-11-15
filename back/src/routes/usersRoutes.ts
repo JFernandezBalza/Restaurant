@@ -5,7 +5,7 @@ import {
   loginUsersController,
   registerUsersController,
 } from "../controllers/usersControllers";
-import { UserLoginDTO, UserRegisterDTO } from "../dto/userDto";
+import { IUserLoginDTO, IUserRegisterDTO } from "../dto/UserDTO";
 
 const usersRouter: Router = Router();
 
@@ -17,13 +17,13 @@ usersRouter.get("/:id", (req: Request<{ id: string }>, res: Response) =>
 );
 usersRouter.post(
   "/register",
-  (req: Request<unknown, unknown, UserRegisterDTO>, res: Response) =>
+  (req: Request<unknown, unknown, IUserRegisterDTO>, res: Response) =>
     registerUsersController(req, res)
 );
 
 usersRouter.post(
   "/login",
-  (req: Request<unknown, unknown, UserLoginDTO>, res: Response) =>
+  (req: Request<unknown, unknown, IUserLoginDTO>, res: Response) =>
     loginUsersController(req, res)
 );
 

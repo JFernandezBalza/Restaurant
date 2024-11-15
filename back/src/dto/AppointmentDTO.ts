@@ -1,5 +1,6 @@
-export interface AppointmentRegisterDTO {
+export interface IAppointmentRegisterDTO {
   date: Date;
   time: string;
-  status: "active";
+  status: string;
+  userId: number;
 }
