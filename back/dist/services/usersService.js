@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUsersService = exports.registerUsersService = exports.getUsersByIdService = exports.getUsersService = void 0;
-const credentialsService_1 = require("./credentialsService");
+// import { getCredentialsService } from "./credentialsService";
 const users = [];
 let id = 1;
 const getUsersService = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -36,14 +36,17 @@ const getUsersByIdService = (id) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.getUsersByIdService = getUsersByIdService;
 const registerUsersService = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    const idCredentialsUser = yield (0, credentialsService_1.getCredentialsService)(user.name, user.password);
+    // const idCredentialsUser = await getCredentialsService(  
+    //   user.username,
+    //   user.password
+    // );  
     const newUser = {
         id: id++,
         name: user.name,
         email: user.email,
         birthdate: new Date(user.birthdate),
-        nDni: user.DNI,
-        credentialsId: idCredentialsUser,
+        nDni: user.DNI
+        // credentialsId: idCredentialsUser,
     };
     users.push(newUser);
     return newUser;

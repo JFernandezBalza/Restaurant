@@ -22,7 +22,7 @@ const crypPassword = (pass) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const checkUserExists = (username) => {
     const credentialsFound = credentialsList.find((credential) => credential.username === username);
-    if (!credentialsFound)
+    if (credentialsFound)
         throw new Error(`El usuario con username: ${username} ya existe, intente con un nuevo username`);
 };
 const getCredentialsService = (username, password) => __awaiter(void 0, void 0, void 0, function* () {

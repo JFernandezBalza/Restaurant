@@ -44,7 +44,7 @@ export const getUsersByIdController = async (
 export const registerUsersController = async (
   req: Request<unknown, unknown, IUserRegisterDTO>,
   res: Response
-): Promise<void> => {
+): Promise<void> => {   
   try {
     const serviceResponse: IUser = await registerUsersService(
       req.body

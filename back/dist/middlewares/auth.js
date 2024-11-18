@@ -1,10 +1,8 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const auth = (req, res, next) => {
-    const { token } = req.headers;
-    if (token === "autenticado")
-        next();
-    else
-        res.status(400).json({ message: "Error: Falta autenticación" });
-};
-exports.default = auth;
+// import { Request, Response, NextFunction } from "express";
+// const auth = (req: Request, res: Response, next: NextFunction) => {
+//   const { token } = req.headers;
+//   if (token === "autenticado") next();
+//   else res.status(400).json({ message: "Error: Falta autenticación" });
+// };
+// export default auth;

@@ -17,7 +17,8 @@ const checkUserExists = (username: string): void=> {
     const credentialsFound: ICredentials | undefined = credentialsList.find(
         (credential) => credential.username === username)
 
-        if(!credentialsFound) throw new Error(`El usuario con username: ${username} ya existe, intente con un nuevo username`)
+        if(credentialsFound) throw new Error(`El usuario con username: ${username} ya existe, intente con un nuevo username`)
+
 }
 
 

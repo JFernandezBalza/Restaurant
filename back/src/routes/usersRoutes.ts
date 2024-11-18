@@ -15,16 +15,12 @@ usersRouter.get("/", (req: Request, res: Response) =>
 usersRouter.get("/:id", (req: Request<{ id: string }>, res: Response) =>
   getUsersByIdController(req, res)
 );
-usersRouter.post(
-  "/register",
-  (req: Request<unknown, unknown, IUserRegisterDTO>, res: Response) =>
-    registerUsersController(req, res)
+usersRouter.post("/register", (req: Request<unknown, unknown, IUserRegisterDTO>, res: Response) =>
+  registerUsersController(req, res)
 );
 
-usersRouter.post(
-  "/login",
-  (req: Request<unknown, unknown, IUserLoginDTO>, res: Response) =>
-    loginUsersController(req, res)
+usersRouter.post("/login", (req: Request<unknown, unknown, IUserLoginDTO>, res: Response) =>
+  loginUsersController(req, res)
 );
 
 export default usersRouter;

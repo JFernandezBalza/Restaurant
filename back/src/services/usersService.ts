@@ -27,26 +27,29 @@ export const getUsersByIdService = async (id: string): Promise<IUserDTO> => {
     };
 };
 
-export const registerUsersService = async (
-  user: IUserRegisterDTO
-): Promise<IUser> => {
-
-  const idCredentialsUser = await getCredentialsService(
-    user.name,
+export const registerUsersService = async (  
+  user: IUserRegisterDTO  
+): Promise<IUser> => {   
+  const idCredentialsUser = await getCredentialsService(  
+    user.username,
     user.password
-  );
-  const newUser: IUser = {
-    id: id++,
-    name: user.name,
-    email: user.email,
-    birthdate: new Date(user.birthdate),
+  );  
+  
+  const newUser: IUser = {  
+    id: id++,  
+    name: user.name,  
+    email: user.email,  
+    birthdate: new Date(user.birthdate),  
     nDni: user.DNI,
     credentialsId: idCredentialsUser,
-
-  };
-  users.push(newUser);
-  return newUser;
+  };  
+  users.push(newUser);  
+  return newUser;  
 };
+
+
+
+
 
 export const loginUsersService = async (
   userCredentials: IUserLoginDTO
