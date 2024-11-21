@@ -3,13 +3,26 @@ export interface IUserRegisterDTO {
   password: string;
   email: string;
   birthdate: Date;
-  DNI: number;
+  nDni: number;
   username: string;
 }
 
-export interface IUserLoginDTO {
-  email: string;
+export interface IUserCredentialDTO {
+  username: string;
   password: string;
+}
+
+export interface IUserLoginDto {
+  login: boolean;
+  user: IUserDataLoginDTO;
+}
+
+interface IUserDataLoginDTO {
+  id?: number;
+  name?: string;
+  nDni?: number;
+  email?: string;
+  birthdate?: Date;
 }
 
 export interface IUserDTO {

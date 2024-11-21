@@ -19,7 +19,7 @@ const getAppointmentsService = () => __awaiter(void 0, void 0, void 0, function*
 });
 exports.getAppointmentsService = getAppointmentsService;
 const getAppointmentsByIdService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const appointmentFound = appointmentList.find(appointmen => appointmen.id === parseInt(id, 10));
+    const appointmentFound = appointmentList.find((appointmen) => appointmen.id === parseInt(id, 10));
     if (!appointmentFound)
         throw new Error(`La cita con el id ${id} no fue encontrada`);
     else
@@ -27,22 +27,20 @@ const getAppointmentsByIdService = (id) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.getAppointmentsByIdService = getAppointmentsByIdService;
 const registerAppointmentsService = (appointmentData) => __awaiter(void 0, void 0, void 0, function* () {
-    const userFound = yield (0, usersService_1.getUsersByIdService)(appointmentData.userId.toString());
-    if (!userFound)
-        throw new Error(`El usuario con el id: ${appointmentData.userId} no existe`);
+    yield (0, usersService_1.getUsersByIdService)(appointmentData.userId);
     const newAppointments = {
         id: id++,
         date: new Date(appointmentData.date),
         time: appointmentData.time,
         status: IAppointments_1.Status.active,
-        userId: appointmentData.userId
+        userId: appointmentData.userId,
     };
     appointmentList.push(newAppointments);
     return newAppointments;
 });
 exports.registerAppointmentsService = registerAppointmentsService;
 const cancelStatusAppointmentsService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const appointmentFound = appointmentList.find(appointmen => appointmen.id === parseInt(id, 10));
+    const appointmentFound = appointmentList.find((appointmen) => appointmen.id === parseInt(id, 10));
     if (!appointmentFound)
         throw new Error(`La cita con el id ${id} no fue encontrada`);
     appointmentFound.status = IAppointments_1.Status.canceled;

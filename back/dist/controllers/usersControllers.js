@@ -28,7 +28,7 @@ exports.getUsersController = getUsersController;
 const getUsersByIdController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        const serviceResponse = yield (0, usersService_1.getUsersByIdService)(id);
+        const serviceResponse = yield (0, usersService_1.getUsersByIdService)(parseInt(id, 10));
         res.status(200).json({
             message: "Obtener el detalle de un usuario específico",
             data: serviceResponse,
@@ -55,10 +55,7 @@ exports.registerUsersController = registerUsersController;
 const loginUsersController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const serviceResponse = yield (0, usersService_1.loginUsersService)(req.body);
-        res.status(200).json({
-            message: "Login del usuario a la aplicación",
-            data: serviceResponse,
-        });
+        res.status(200).json(serviceResponse);
     }
     catch (error) {
         (0, appointmentsControllers_1.handleErrorResponse)(error, res, "Error al loguear al usuario");

@@ -12,9 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.cancelStatusAppointmentsController = exports.registerAppointmentsController = exports.getAppointmentsByIdController = exports.getAppointmentsController = exports.handleErrorResponse = void 0;
 const appointmentsService_1 = require("../services/appointmentsService");
 const handleErrorResponse = (error, res, message) => {
+    const err = error;
     const errorMessage = {
         message: message,
-        detail: error instanceof Error ? error.message : "Error desconocido",
+        detail: error instanceof Error
+            ? err.detail
+                ? err.detail
+                : error.message
+            : "Error desconocido",
     };
     res.status(400).json(errorMessage);
 };

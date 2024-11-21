@@ -6,5 +6,3 @@ export interface IUser {
   nDni: number;
   credentialsId: number;
 }
-
-

@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkUserCredentials = exports.getCredentialsService = void 0;
-const credentialsList = [];
-let id = 1;
+const Credential_entity_1 = require("../entities/Credential.entity");
+const Credential_Repository_1 = require("../repositories/Credential.Repository");
 const crypPassword = (pass) => __awaiter(void 0, void 0, void 0, function* () {
     const encoder = new TextEncoder();
     const data = encoder.encode(pass);
@@ -20,28 +20,32 @@ const crypPassword = (pass) => __awaiter(void 0, void 0, void 0, function* () {
     const hasHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
     return hasHex;
 });
-const checkUserExists = (username) => {
-    const credentialsFound = credentialsList.find((credential) => credential.username === username);
+const checkUserExists = (username) => __awaiter(void 0, void 0, void 0, function* () {
+    const credentialsFound = yield Credential_Repository_1.CredentialRepository.findOne({ where: { username } });
     if (credentialsFound)
         throw new Error(`El usuario con username: ${username} ya existe, intente con un nuevo username`);
-};
-const getCredentialsService = (username, password) => __awaiter(void 0, void 0, void 0, function* () {
-    checkUserExists(username);
+});
+const getCredentialsService = (entityManager, username, password) => __awaiter(void 0, void 0, void 0, function* () {
+    yield checkUserExists(username);
     const passwordEncrypted = yield crypPassword(password);
-    const objectCredentials = {
-        id,
+    const objectCredentials = entityManager.create(Credential_entity_1.Credential, {
         username,
         password: passwordEncrypted,
-    };
-    credentialsList.push(objectCredentials);
-    return id++;
+    });
+    return yield entityManager.save(objectCredentials);
 });
 exports.getCredentialsService = getCredentialsService;
 const checkUserCredentials = (username, password) => __awaiter(void 0, void 0, void 0, function* () {
-    const credentialsFound = credentialsList.find((credential) => credential.username === username);
-    const passwordEncrypted = yield crypPassword(password);
-    return (credentialsFound === null || credentialsFound === void 0 ? void 0 : credentialsFound.password) === passwordEncrypted
-        ? credentialsFound.id
-        : undefined;
+    const credentialsFound = yield Credential_Repository_1.CredentialRepository.findOne({ where: { username } });
+    if (!credentialsFound)
+        throw new Error("Usuario o contraseña incorrectos");
+    else {
+        const passwordEncrypted = yield crypPassword(password);
+        if ((credentialsFound === null || credentialsFound === void 0 ? void 0 : credentialsFound.password) != passwordEncrypted)
+            throw new Error("Usuario o contrase incorrectos");
+        else {
+            return credentialsFound.id;
+        }
+    }
 });
 exports.checkUserCredentials = checkUserCredentials;

@@ -10,49 +10,52 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUsersService = exports.registerUsersService = exports.getUsersByIdService = exports.getUsersService = void 0;
-// import { getCredentialsService } from "./credentialsService";
-const users = [];
-let id = 1;
+const data_source_1 = require("../config/data-source");
+const User_entity_1 = require("../entities/User.entity");
+const User_Repository_1 = require("../repositories/User.Repository");
+const credentialsService_1 = require("./credentialsService");
 const getUsersService = () => __awaiter(void 0, void 0, void 0, function* () {
-    return users.map((user) => {
-        return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-        };
-    });
+    const users = yield User_Repository_1.UserRepository.find();
+    return users;
 });
 exports.getUsersService = getUsersService;
 const getUsersByIdService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const userFound = users.find((user) => user.id === parseInt(id, 10));
+    const userFound = yield User_Repository_1.UserRepository.findOne({
+        where: { id },
+        relations: ["credentials"],
+    });
     if (!userFound)
         throw new Error(`El usuario con id: ${id} no se encontro`);
     else
-        return {
-            id: userFound.id,
-            name: userFound.name,
-            email: userFound.email,
-        };
+        return userFound;
 });
 exports.getUsersByIdService = getUsersByIdService;
 const registerUsersService = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    // const idCredentialsUser = await getCredentialsService(  
-    //   user.username,
-    //   user.password
-    // );  
-    const newUser = {
-        id: id++,
-        name: user.name,
-        email: user.email,
-        birthdate: new Date(user.birthdate),
-        nDni: user.DNI
-        // credentialsId: idCredentialsUser,
-    };
-    users.push(newUser);
-    return newUser;
+    const result = yield data_source_1.AppDataSource.transaction((entityManager) => __awaiter(void 0, void 0, void 0, function* () {
+        const userCredentials = yield (0, credentialsService_1.getCredentialsService)(entityManager, user.username, user.password);
+        const newUser = entityManager.create(User_entity_1.User, {
+            name: user.name,
+            email: user.email,
+            birthdate: user.birthdate,
+            nDni: user.nDni,
+            credentials: userCredentials,
+        });
+        return yield entityManager.save(newUser);
+    }));
+    return result;
 });
 exports.registerUsersService = registerUsersService;
 const loginUsersService = (userCredentials) => __awaiter(void 0, void 0, void 0, function* () {
-    return userCredentials;
+    const credentialId = yield (0, credentialsService_1.checkUserCredentials)(userCredentials.username, userCredentials.password);
+    const userFound = yield User_Repository_1.UserRepository.findOne({ where: {
+            credentials: {
+                id: credentialId
+            }
+        }
+    });
+    return {
+        login: true,
+        user: Object.assign({}, userFound)
+    };
 });
 exports.loginUsersService = loginUsersService;
