@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { IUserCredentialDTO, IUserRegisterDTO } from "../dto/UserDTO";
+import { IUserCredentialDTO, IUserRegisterDTO } from "../dto/userDto";
 import userController from "../controllers/usersControllers";
 
 const usersRouter: Router = Router();

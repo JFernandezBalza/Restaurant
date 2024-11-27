@@ -9,72 +9,42 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cancelStatusAppointmentsController = exports.registerAppointmentsController = exports.getAppointmentsByIdController = exports.getAppointmentsController = exports.handleErrorResponse = void 0;
 const appointmentsService_1 = require("../services/appointmentsService");
-const handleErrorResponse = (error, res, message) => {
-    const err = error;
-    const errorMessage = {
-        message: message,
-        detail: error instanceof Error
-            ? err.detail
-                ? err.detail
-                : error.message
-            : "Error desconocido",
-    };
-    res.status(400).json(errorMessage);
-};
-exports.handleErrorResponse = handleErrorResponse;
+const errorCatch_1 = require("../utils/errorCatch");
 const getAppointmentsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const serviceResponse = yield (0, appointmentsService_1.getAppointmentsService)();
-        res.status(200).json({
-            message: "Obtener el listado de todos los turnos de todos los usuarios",
-            data: serviceResponse,
-        });
-    }
-    catch (error) {
-        (0, exports.handleErrorResponse)(error, res, "Error al obtener todas las citas");
-    }
+    const serviceResponse = yield (0, appointmentsService_1.getAppointmentsService)();
+    res.status(200).json({
+        message: "Obtener el listado de todos los turnos de todos los usuarios",
+        data: serviceResponse,
+    });
 });
-exports.getAppointmentsController = getAppointmentsController;
 const getAppointmentsByIdController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    try {
-        const serviceResponse = yield (0, appointmentsService_1.getAppointmentsByIdService)(id);
-        res.status(200).json({
-            message: "Obtener el detalle de un turno especifico",
-            data: serviceResponse,
-        });
-    }
-    catch (error) {
-        (0, exports.handleErrorResponse)(error, res, "Error al obtener la cita del turno especifico");
-    }
+    const serviceResponse = yield (0, appointmentsService_1.getAppointmentsByIdService)(id);
+    res.status(200).json({
+        message: "Obtener el detalle de un turno especifico",
+        data: serviceResponse,
+    });
 });
-exports.getAppointmentsByIdController = getAppointmentsByIdController;
 const registerAppointmentsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const serviceResponse = yield (0, appointmentsService_1.registerAppointmentsService)(req.body);
-        res.status(200).json({
-            message: "Agendar un nuevo turno",
-            data: serviceResponse,
-        });
-    }
-    catch (error) {
-        (0, exports.handleErrorResponse)(error, res, "Error al agendar la nueva cita");
-    }
+    const serviceResponse = yield (0, appointmentsService_1.registerAppointmentsService)(req.body);
+    res.status(201).json({
+        message: "Agendar un nuevo turno",
+        data: serviceResponse,
+    });
 });
-exports.registerAppointmentsController = registerAppointmentsController;
 const cancelStatusAppointmentsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    try {
-        const serviceResponse = yield (0, appointmentsService_1.cancelStatusAppointmentsService)(id);
-        res.status(200).json({
-            message: "Cambiar status del turno a cancelled",
-            data: serviceResponse,
-        });
-    }
-    catch (error) {
-        (0, exports.handleErrorResponse)(error, res, "Error al cancelar la cita");
-    }
+    const serviceResponse = yield (0, appointmentsService_1.cancelStatusAppointmentsService)(id);
+    res.status(200).json({
+        message: "Se cancelo con exito",
+        data: serviceResponse,
+    });
 });
-exports.cancelStatusAppointmentsController = cancelStatusAppointmentsController;
+const appointmentController = {
+    getAppointmentsController: (0, errorCatch_1.errorCatch)(getAppointmentsController),
+    getAppointmentsByIdController: (0, errorCatch_1.errorCatch)(getAppointmentsByIdController),
+    registerAppointmentsController: (0, errorCatch_1.errorCatch)(registerAppointmentsController),
+    cancelStatusAppointmentsController: (0, errorCatch_1.errorCatch)(cancelStatusAppointmentsController),
+};
+exports.default = appointmentController;

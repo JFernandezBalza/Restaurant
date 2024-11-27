@@ -13,6 +13,7 @@ exports.loginUsersService = exports.registerUsersService = exports.getUsersByIdS
 const data_source_1 = require("../config/data-source");
 const User_entity_1 = require("../entities/User.entity");
 const User_Repository_1 = require("../repositories/User.Repository");
+const customError_1 = require("../utils/customError");
 const credentialsService_1 = require("./credentialsService");
 const getUsersService = () => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield User_Repository_1.UserRepository.find();
@@ -22,10 +23,10 @@ exports.getUsersService = getUsersService;
 const getUsersByIdService = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const userFound = yield User_Repository_1.UserRepository.findOne({
         where: { id },
-        relations: ["credentials"],
+        relations: ["appointments"],
     });
     if (!userFound)
-        throw new Error(`El usuario con id: ${id} no se encontro`);
+        throw new customError_1.CustomError(404, `El usuario con id: ${id} no se encontro`);
     else
         return userFound;
 });
@@ -47,15 +48,16 @@ const registerUsersService = (user) => __awaiter(void 0, void 0, void 0, functio
 exports.registerUsersService = registerUsersService;
 const loginUsersService = (userCredentials) => __awaiter(void 0, void 0, void 0, function* () {
     const credentialId = yield (0, credentialsService_1.checkUserCredentials)(userCredentials.username, userCredentials.password);
-    const userFound = yield User_Repository_1.UserRepository.findOne({ where: {
+    const userFound = yield User_Repository_1.UserRepository.findOne({
+        where: {
             credentials: {
-                id: credentialId
-            }
-        }
+                id: credentialId,
+            },
+        },
     });
     return {
         login: true,
-        user: Object.assign({}, userFound)
+        user: Object.assign({}, userFound),
     };
 });
 exports.loginUsersService = loginUsersService;

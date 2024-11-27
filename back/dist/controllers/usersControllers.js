@@ -9,56 +9,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUsersController = exports.registerUsersController = exports.getUsersByIdController = exports.getUsersController = void 0;
 const usersService_1 = require("../services/usersService");
-const appointmentsControllers_1 = require("./appointmentsControllers");
+const errorCatch_1 = require("../utils/errorCatch");
 const getUsersController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const serviceResponse = yield (0, usersService_1.getUsersService)();
-        res.status(200).json({
-            message: "Obtener el listado de los usuarios",
-            data: serviceResponse,
-        });
-    }
-    catch (error) {
-        (0, appointmentsControllers_1.handleErrorResponse)(error, res, "Error al obtener todos los usuarios");
-    }
+    const serviceResponse = yield (0, usersService_1.getUsersService)();
+    res.status(200).json({
+        message: "Obtener el listado de los usuarios",
+        data: serviceResponse,
+    });
 });
-exports.getUsersController = getUsersController;
 const getUsersByIdController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    try {
-        const serviceResponse = yield (0, usersService_1.getUsersByIdService)(parseInt(id, 10));
-        res.status(200).json({
-            message: "Obtener el detalle de un usuario específico",
-            data: serviceResponse,
-        });
-    }
-    catch (error) {
-        (0, appointmentsControllers_1.handleErrorResponse)(error, res, "Error al obtener el usuario especifico");
-    }
+    const serviceResponse = yield (0, usersService_1.getUsersByIdService)(parseInt(id, 10));
+    res.status(200).json(serviceResponse);
 });
-exports.getUsersByIdController = getUsersByIdController;
 const registerUsersController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const serviceResponse = yield (0, usersService_1.registerUsersService)(req.body);
-        res.status(201).json({
-            message: "Registro de nuevo usuario",
-            data: serviceResponse,
-        });
-    }
-    catch (error) {
-        (0, appointmentsControllers_1.handleErrorResponse)(error, res, "Error al registrar el nuevo usuario");
-    }
+    const serviceResponse = yield (0, usersService_1.registerUsersService)(req.body);
+    res.status(201).json({
+        message: "Registro de nuevo usuario",
+        data: serviceResponse,
+    });
 });
-exports.registerUsersController = registerUsersController;
 const loginUsersController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const serviceResponse = yield (0, usersService_1.loginUsersService)(req.body);
-        res.status(200).json(serviceResponse);
-    }
-    catch (error) {
-        (0, appointmentsControllers_1.handleErrorResponse)(error, res, "Error al loguear al usuario");
-    }
+    const serviceResponse = yield (0, usersService_1.loginUsersService)(req.body);
+    res.status(200).json(serviceResponse);
 });
-exports.loginUsersController = loginUsersController;
+const userController = {
+    getUsersController: (0, errorCatch_1.errorCatch)(getUsersController),
+    getUsersByIdController: (0, errorCatch_1.errorCatch)(getUsersByIdController),
+    registerUsersController: (0, errorCatch_1.errorCatch)(registerUsersController),
+    loginUsersController: (0, errorCatch_1.errorCatch)(loginUsersController),
+};
+exports.default = userController;

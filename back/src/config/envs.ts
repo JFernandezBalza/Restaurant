@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-as-const */
 import "dotenv/config";
 
 export const PORT: number = process.env.PORT

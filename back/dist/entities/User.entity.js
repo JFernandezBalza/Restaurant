@@ -42,7 +42,9 @@ __decorate([
     __metadata("design:type", Credential_entity_1.Credential)
 ], User.prototype, "credentials", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Appointments_entitiy_1.Appointment, appointments => appointments.user, { nullable: true }),
+    (0, typeorm_1.OneToMany)(() => Appointments_entitiy_1.Appointment, (appointments) => appointments.user, {
+        nullable: true,
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "appointments", void 0);
 __decorate([

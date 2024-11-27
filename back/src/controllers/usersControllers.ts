@@ -10,7 +10,7 @@ import {
   IUserDTO,
   IUserLoginDto,
   IUserRegisterDTO,
-} from "../dto/UserDTO";
+} from "../dto/userDto";
 import { User } from "../entities/User.entity";
 import { errorCatch } from "../utils/errorCatch";
 

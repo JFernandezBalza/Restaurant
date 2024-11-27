@@ -12,4 +12,23 @@ server.use(express_1.default.json());
 server.use((0, morgan_1.default)("dev"));
 server.use((0, cors_1.default)());
 server.use(indexRoutes_1.default);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+server.use((err, req, res, next) => {
+    const error = err;
+    const errorMessage = {
+        message: "Error en el servidor",
+        detail: err instanceof Error
+            ? error.detail
+                ? error.detail
+                : err.message
+            : "Error desconocido",
+        code: error.code,
+    };
+    if (error.code === 404)
+        res
+            .status(404)
+            .json({ message: errorMessage.message, detail: errorMessage.detail });
+    else
+        res.status(400).json(errorMessage);
+});
 exports.default = server;

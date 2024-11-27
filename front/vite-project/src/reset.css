@@ -1,0 +1,39 @@
+/* Reset CSS */  
+* {  
+    margin: 0;  
+    padding: 0;  
+    box-sizing: border-box;  
+}  
+
+html {  
+    font-size: 100%; /* Utiliza un tamaño de fuente base */  
+}  
+
+body {  
+    line-height: 1.5; /* Mayor legibilidad */  
+    font-family: Arial, sans-serif; /* Cambia según tu preferencia */  
+}  
+
+/* Estilos para elementos de lista */  
+ul,  
+ol {  
+    list-style: none; /* Elimina viñetas o números */  
+}  
+
+/* Estilos para las tablas */  
+table {  
+    border-collapse: collapse; /* Elimina espacios entre bordes */  
+    width: 100%; /* Hace que las tablas ocupen todo el ancho */  
+}  
+
+th,  
+td {  
+    text-align: left; /* Alineación de texto a la izquierda */  
+}  
+
+/* Flexbox y Grid */  
+.container {  
+    display: flex; /* O usa display: grid; según necesites */  
+}  
+
+/* Asegúrate de agregar cualquier otro estilo específico que necesites para tu proyecto */

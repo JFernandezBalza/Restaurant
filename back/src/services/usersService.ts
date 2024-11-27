@@ -4,7 +4,7 @@ import {
   IUserDTO,
   IUserLoginDto,
   IUserRegisterDTO,
-} from "../dto/UserDTO";
+} from "../dto/userDto";
 import { Credential } from "../entities/Credential.entity";
 import { User } from "../entities/User.entity";
 import { UserRepository } from "../repositories/User.Repository";

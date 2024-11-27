@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DB_DROP = exports.DB_ENTITIES = exports.DB_LOGGING = exports.DB_SYNC = exports.DB_DATABASE = exports.DB_PASSWORD = exports.DB_USERNAME = exports.DB_PORT = exports.DB_HOST = exports.DB_TYPE = exports.PORT = void 0;
+/* eslint-disable @typescript-eslint/prefer-as-const */
 require("dotenv/config");
 exports.PORT = process.env.PORT
     ? parseInt(process.env.PORT, 10)
