@@ -1,10 +1,10 @@
-import Nabvar from "../components/Nabvar";
+import Nabvar from "../../components/Navbar/Nabvar";
 
 function Home() {
   return (
-      <>
-      < Nabvar />
+    <>
       <h1>Probando el Home</h1>
+      <Nabvar />
     </>
   );
 }
