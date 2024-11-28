@@ -1,10 +1,14 @@
+/* eslint-disable react/prop-types */
 import { loginFormValidate } from "../../helpers/LoginFormValidate";
 import { useFormik } from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
-const Login = () => {
+const Login = ({setIsLogged}) => {
+
+  const navigate= useNavigate()
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -23,10 +27,12 @@ const Login = () => {
           if (res.status === 200) {
             Swal.fire({
               icon: "success",
-              title: "LoginCorrecto",
+              title: "Login Correcto",
               text: "Bienvenido " + res.data.username,
             });
           }
+          setIsLogged(true)
+          navigate("/")
         })
         .catch((error) => {
           if (error) {
