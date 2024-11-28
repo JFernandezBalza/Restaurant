@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import Turno from "../../components/Turno/Turno";
-import axios from "axios"
+import axios from "axios";
 
 const MisTurnos = () => {
   const [turnos, setTurnos] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/appointments")
-    .then(response => {
-      console.log(response);  
-      setTurnos(response.data.data);    
-    }).catch(error=> console.log(error))
-  }, [])
+    axios
+      .get("http://localhost:3000/appointments")
+      .then((response) => {
+        console.log(response);
+        setTurnos(response.data.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <div>
