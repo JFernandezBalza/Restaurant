@@ -4,7 +4,6 @@ function Home() {
   return (
     <>
       <h1>Probando el Home</h1>
-      <Nabvar />
     </>
   );
 }

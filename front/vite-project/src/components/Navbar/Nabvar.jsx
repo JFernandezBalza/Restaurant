@@ -1,12 +1,18 @@
+import { Link } from "react-router-dom";
+
+
 function Nabvar() {
   return (
+   <div>
     <nav>
-      <ul>
-        <li>Home</li>
-        <li>Appointments</li>
-        <li>About</li>
-      </ul>
+      <li>
+        <Link to= "/">Home </Link>
+      </li>
+      <li>
+        <Link to= "/misturnos">Mis Turnos </Link>
+      </li>
     </nav>
+   </div>
   );
 }
 

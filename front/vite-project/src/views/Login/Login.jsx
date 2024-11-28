@@ -2,6 +2,7 @@ import { loginFormValidate } from "../../helpers/LoginFormValidate";
 import { useFormik } from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom"
 
 const Login = () => {
   const formik = useFormik({
@@ -83,6 +84,10 @@ const Login = () => {
       >
         Submit
       </button>
+      <br />
+      <label>
+        Aun no tienes cuenta ? <Link to= "/register">Registrate</Link>
+      </label>
     </form>
   );
 };
