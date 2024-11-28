@@ -1,66 +1,50 @@
-import { useEffect, useState } from "react";
-import "./App.module.css";
-import Nabvar from "./components/Navbar/Nabvar";
-import Home from "./views/Home/Home";
-import Login from "./views/Login/Login";
-import MisTurnos from "./views/MisTurnos/MisTurnos";
-import Register from "./views/Register/Register";
-import { Routes, Route, useNavigate, useLocation} from "react-router-dom";
-import NotFound from "./views/NotFound/NotFound";
+import { useEffect, useState } from "react";  
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";  
+import Nabvar from "./components/Navbar/Nabvar";  
+import Home from "./views/Home/Home";  
+import Login from "./views/Login/Login";  
+import MisTurnos from "./views/MisTurnos/MisTurnos";  
+import Register from "./views/Register/Register";  
+import NotFound from "./views/NotFound/NotFound";  
+import styles from './App.module.css'; // Importar estilos del CSS Module  
 
-function App() {
+function App() {  
+  const location = useLocation();  
+  const navigate = useNavigate();  
+  const [isLogged, setIsLogged] = useState(true); // Cambia a false para simular no autenticación  
+  const [isNotFound, setIsNotFound] = useState(false);  
 
-  const location= useLocation();
-  const navigate= useNavigate();
-  const [isLogged, setIsLogged]= useState(true);
-  const [isNotFound, setIsNotFound]= useState(false);
+  useEffect(() => {  
+    const validRoutes = ["/", "/login", "/register", "/misturnos"];  
+    const currentPath = location.pathname;  
 
-  useEffect(()=>{
+    setIsNotFound(!validRoutes.includes(currentPath));  
 
-    const validRoutes= ["/", "/login", "/register", "/misturnos"]
-    if(!validRoutes.includes(location.pathname))setIsNotFound(true)
-      else setIsNotFound(false)
-    
-    if(!isLogged && location.pathname !== "/login" && location.pathname !== "/register"){
-      navigate("/login")
-    }
-
-    if(isLogged && location.pathname === "/login" || isLogged && location.pathname === "/register"){
-      navigate("/")
-    }
-  }, [location.pathname, isLogged])
-
-
-  return (
-    <>
-
-    {
-    !isLogged ? (
-      <>
-        <Nabvar/>
-        <Routes>
-        <Route path="/login" element={<Login/>} />
-        <Route path="/register" element={<Register/>} />
-      </Routes>
-      </>
-      ): (
-        <>
-        {!isNotFound && (
-          <header>
-            <span>LOGO</span>
-            <Nabvar />
-          </header>
-        )}
-        <main>
-        <Route path="/" element={<Home/>} />
-        <Route path="/misturnos" element={<MisTurnos/>} />
-        <Route path="*" element={<NotFound/>} />
-        </main>
-        </>
-      )
+    if (!isLogged && currentPath !== "/login" && currentPath !== "/register") {  
+      navigate("/login");  
     }  
-    </>
-  );
-}
+
+    if (isLogged && (currentPath === "/login" || currentPath === "/register")) {  
+      navigate("/");  
+    }  
+  }, [location.pathname, isLogged, navigate]);  
+
+  return (  
+    <>  
+      <header className={styles.header}>  
+        {(!isLogged || isNotFound) && <Nabvar />}  
+      </header>  
+      <main className={styles.main}>  
+        <Routes>  
+          <Route path="/" element={isLogged ? <Home /> : <Login />} />  
+          <Route path="/login" element={!isLogged ? <Login /> : <Home />} />  
+          <Route path="/register" element={isLogged ? <Home /> : <Register />} />  
+          <Route path="/misturnos" element={isLogged ? <MisTurnos /> : <Login />} />  
+          <Route path="*" element={<NotFound />} />  
+        </Routes>  
+      </main>  
+    </>  
+  );  
+}  
 
 export default App;
