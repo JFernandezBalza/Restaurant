@@ -1,10 +1,15 @@
 import { registerFormValidate } from "../../helpers/RegisterFormValidate";
 import { useFormik } from "formik";
-import axios from "axios";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UsersContext } from "../../contex/UsersContex";
 
 const Register = () => {
+  const { registerUser } = useContext(UsersContext);
+  const navigate= useNavigate()
+
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -24,40 +29,37 @@ const Register = () => {
     },
 
     validate: registerFormValidate,
-    onSubmit: (values) => {
-      axios
-        .post("http://localhost:3000/users/register", values)
-        .then((res) => {
-          if (res.status === 201) {
-            Swal.fire({
-              icon: "success",
-              title: "Registro Exitoso!",
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response.data.detail.includes("nDni")) {
-            Swal.fire({
-              icon: "error",
-              title: `Ya existe un usuario con el nDni: ${formik.values.nDni}`,
-            });
-          }
-          if (error.response.data.detail.includes("username")) {
-            Swal.fire({
-              icon: "error",
-              title: `Ya existe un usuario con el username: ${formik.values.username}`,
-              text: "Intente con otro username",
-            });
-          }
-
-          if (error.response.data.detail.includes("email")) {
-            Swal.fire({
-              icon: "error",
-              title: `Ya existe un usuario con el email: ${formik.values.email}`,
-              text: "Intente con otro email",
-            });
-          }
+    onSubmit: async (values) => {
+      try {
+        await registerUser(values);
+        Swal.fire({
+          icon: "success",
+          title: "Registro Exitoso!",
         });
+        navigate("/login")
+      } catch (error) {
+        if (error.response.data.detail.includes("nDni")) {
+          Swal.fire({
+            icon: "error",
+            title: `Ya existe un usuario con el nDni: ${formik.values.nDni}`,
+          });
+        }
+        if (error.response.data.detail.includes("username")) {
+          Swal.fire({
+            icon: "error",
+            title: `Ya existe un usuario con el username: ${formik.values.username}`,
+            text: "Intente con otro username",
+          });
+        }
+
+        if (error.response.data.detail.includes("email")) {
+          Swal.fire({
+            icon: "error",
+            title: `Ya existe un usuario con el email: ${formik.values.email}`,
+            text: "Intente con otro email",
+          });
+        }
+      }
     },
   });
 
@@ -170,7 +172,7 @@ const Register = () => {
       </button>
       <br />
       <label>
-        Ya tienes cuenta? <Link to= "/login">Login</Link>
+        Ya tienes cuenta? <Link to="/login">Login</Link>
       </label>
     </form>
   );

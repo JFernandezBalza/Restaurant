@@ -1,14 +1,14 @@
-/* eslint-disable react/prop-types */
 import { loginFormValidate } from "../../helpers/LoginFormValidate";
 import { useFormik } from "formik";
-import axios from "axios";
 import Swal from "sweetalert2";
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UsersContext } from "../../contex/UsersContex";
 
-const Login = ({setIsLogged}) => {
+const Login = () => {
+  const { loginUser } = useContext(UsersContext);
 
-  const navigate= useNavigate()
-
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -20,30 +20,21 @@ const Login = ({setIsLogged}) => {
       password: "Password is required",
     },
 
-    onSubmit: (values) => {
-      axios
-        .post("http://localhost:3000/users/login", values)
-        .then((res) => {
-          if (res.status === 200) {
-            Swal.fire({
-              icon: "success",
-              title: "Login Correcto",
-              text: "Bienvenido " + res.data.username,
-            });
-          }
-          localStorage.setItem("login", true)
-          setIsLogged(true)
-          navigate("/")
-        })
-        .catch((error) => {
-          if (error) {
-            Swal.fire({
-              icon: "error",
-              title: "Error en el Login",
-              text: "Error al iniciar sesión, intente nuevamente",
-            });
-          }
+    onSubmit: async (values) => {
+      try {
+        await loginUser(values);
+        Swal.fire({
+          icon: "success",
+          title: "Logueado Correctamente",
         });
+        navigate("/");
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error en el Login",
+          text: "Error al iniciar sesión, intente nuevamente",
+        });
+      }
     },
   });
 
@@ -93,7 +84,7 @@ const Login = ({setIsLogged}) => {
       </button>
       <br />
       <label>
-        Aun no tienes cuenta ? <Link to= "/register">Registrate</Link>
+        Aun no tienes cuenta ? <Link to="/register">Registrate</Link>
       </label>
     </form>
   );

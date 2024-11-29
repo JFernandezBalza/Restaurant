@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Nabvar from "./components/Navbar/Nabvar";
 import Home from "./views/Home/Home";
@@ -7,13 +7,15 @@ import MisTurnos from "./views/MisTurnos/MisTurnos";
 import Register from "./views/Register/Register"
 import NotFound from "./views/NotFound/NotFound";
 import styles from "./App.module.css";
+import { UsersContext } from "./contex/UsersContex";
+
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [isLogged, setIsLogged] = useState(localStorage.getItem("login"));
   const [isNotFound, setisNotFound] = useState(false);
+  const {user} = useContext(UsersContext)
 
   useEffect(() => {
 
@@ -23,23 +25,23 @@ function App() {
       else setisNotFound(false)
 
 
-    if(!isLogged && location.pathname !== "/login" && location.pathname !== "/register") {
+    if(!user && location.pathname !== "/login" && location.pathname !== "/register") {
       navigate("/login")
     }
 
 
-    if(isLogged && location.pathname === "/login" || isLogged && location.pathname === "/register") {
+    if(user && location.pathname === "/login" || user && location.pathname === "/register") {
       navigate("/")
     }
-  }, [location.pathname, isLogged, navigate]);
+  }, [location.pathname, user, navigate]);
 
   return (
       <>
         {
-          !isLogged ? (
+          !user ? (
             <main className={styles.main}>
             <Routes>
-              <Route path="/login" element={<Login setIsLogged={setIsLogged} />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register/>} />
             </Routes>
             </main>
@@ -48,7 +50,7 @@ function App() {
       { !isNotFound && (
         <header>
           <span>Restaurant</span>
-          <Nabvar setIsLogged={setIsLogged} />
+          <Nabvar />
         </header>
       )}
       <main>
