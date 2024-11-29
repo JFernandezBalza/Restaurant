@@ -31,6 +31,7 @@ const Login = ({setIsLogged}) => {
               text: "Bienvenido " + res.data.username,
             });
           }
+          localStorage.setItem("login", true)
           setIsLogged(true)
           navigate("/")
         })

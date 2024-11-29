@@ -9,8 +9,9 @@ function Navbar({ setIsLogged }) {
     Swal.fire({
       icon: "warning",
       title: "Tu sesion fue cerrada correctamente",
-    });
-    setIsLogged(false);
+    })
+    localStorage.clear()
+    setIsLogged(false)
     navigate("/login");
   };
 

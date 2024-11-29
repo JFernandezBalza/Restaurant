@@ -12,7 +12,7 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(localStorage.getItem("login"));
   const [isNotFound, setisNotFound] = useState(false);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ function App() {
       <>
       { !isNotFound && (
         <header>
-          <span>LOGO</span>
+          <span>Restaurant</span>
           <Nabvar setIsLogged={setIsLogged} />
         </header>
       )}
