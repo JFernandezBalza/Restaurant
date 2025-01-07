@@ -1,0 +1,39 @@
+.main{
+    background-image: url(https://www.peru.travel/Contenido/General/Imagen/es/1049/1.1/restaurantes-de-lujo-desktop.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    height: 45em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main2{
+    background-image: url(https://cloudfront-us-east-1.images.arcpublishing.com/bloomberglinea/JD5OAGAEYZHV7DYFKDTTNFTEO4.jpeg
+    );
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulary{
+    width: 80%;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 3em;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+}
+.notF{
+    background-image: url( https://us.123rf.com/450wm/blackroomstudio/blackroomstudio1710/blackroomstudio171000796/88044295-preparaci%C3%B3n-de-patatas-con-champi%C3%B1ones-y-verduras.jpg?ver=6);
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

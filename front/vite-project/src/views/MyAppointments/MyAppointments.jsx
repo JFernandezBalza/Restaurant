@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import Appointment from "../../components/Appointment/Appointment";
 import { UsersContext } from "../../contex/UsersContex";
+import styles from "./MyAppointments.module.css";
 
 const MyAppointments = () => {
 
@@ -11,12 +12,12 @@ const MyAppointments = () => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.container}>
       <div>
-        <h1>Estos son mis turnos</h1>
+        <h1 className= {styles.title} >Mis turnos.</h1>
       </div>
 
-      <div>
+      <div className={styles.card}>
         {
         Array.isArray(userAppointments) && userAppointments.length > 0 ? userAppointments.map( (turno) => (
           <Appointment
@@ -27,9 +28,10 @@ const MyAppointments = () => {
               status={turno.status}
             />
         )) : (
-          <h1>No hay turnos para mostrar</h1>
+          <h1 className= {styles.noCard}>No hay turnos para mostrar</h1>
         )}
       </div>
+      
     </div>
   );
 };

@@ -1,0 +1,31 @@
+.container{
+    width: 90%;
+    height: 40em;
+    margin: 2em;
+}
+
+.title{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: antiquewhite;
+    margin: 1em;
+    font-style: italic;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    gap:1em;
+    border-radius: 3em;
+    color: rgba(0, 0, 0, 0.89);
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.noCard{
+    color: rgba(0, 0, 0, 0.89);
+    font-size: 1.5rem; 
+
+}

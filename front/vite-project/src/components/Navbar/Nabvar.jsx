@@ -26,14 +26,14 @@ function Navbar() {
             <Link to="/">Home</Link>
           </li>
           <li className={styles.menuItem}>
-            <Link to="/misturnos">Mis Turnos</Link>
+            <Link to="/myappointments">Mis Turnos</Link>
           </li>
           <li className={styles.menuItem}>
-            <Link to="/agendarturno">Agendar Turno</Link>
+            <Link to="/schedule">Agendar Turno</Link>
           </li>
 
           <li className={styles.menuItem} onClick={handleLogOut}>
-            <Link to="/login">LogOut</Link>
+            <Link to="/login">Cerrar Sesión</Link>
           </li>
         </ul>
       </nav>

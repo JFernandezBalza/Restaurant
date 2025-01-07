@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
 
-    const validRoutes= ["/", "/login", "/register", "/misturnos", "/agendarturno"]
+    const validRoutes= ["/", "/login", "/register", "/myappointments", "/schedule"]
 
     if(!validRoutes.includes(location.pathname))setisNotFound(true)
       else setisNotFound(false)
@@ -41,31 +41,33 @@ function App() {
         {
           !user ? (
             <main className={styles.main}>
+              <formulary className={styles.formulary}>
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register/>} />
             </Routes>
+              </formulary>
             </main>
           ): (
       <>
       { !isNotFound && (
-        <header>
+        <header className={styles.header}>
           <span>GastroBar BellaVista</span>
           <Nabvar />
         </header>
       )}
-      <main>
+      <main className={styles.main2}>
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="/misturnos" element={<MyAppointments/>} />
-          <Route path="/agendarturno" element={<Schedule/>} />
-          <Route path="*" element={<NotFound/>} />
+          <Route path="/myappointments" element={<MyAppointments/>} />
+          <Route path="/schedule" element={<Schedule/>} />
+          <Route path="*" element={<NotFound/> }/>
         </Routes>
       </main>
         </>
           )
         }
-    </>
+        </>
   );
 }
 
