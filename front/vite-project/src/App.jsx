@@ -3,12 +3,12 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Nabvar from "./components/Navbar/Nabvar";
 import Home from "./views/Home/Home";
 import Login from "./views/Login/Login";
-import MisTurnos from "./views/MisTurnos/MisTurnos";
+import MyAppointments from "./views/MyAppointments/MyAppointments";
 import Register from "./views/Register/Register"
 import NotFound from "./views/NotFound/NotFound";
 import styles from "./App.module.css";
 import { UsersContext } from "./contex/UsersContex";
-import AgendarTurno from "./components/AgendarTurno/AgendarTurno";
+import Schedule from "./components/Schedule/Schedule";
 
 
 function App() {
@@ -57,8 +57,8 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="/misturnos" element={<MisTurnos/>} />
-          <Route path="/agendarturno" element={<AgendarTurno/>} />
+          <Route path="/misturnos" element={<MyAppointments/>} />
+          <Route path="/agendarturno" element={<Schedule/>} />
           <Route path="*" element={<NotFound/>} />
         </Routes>
       </main>

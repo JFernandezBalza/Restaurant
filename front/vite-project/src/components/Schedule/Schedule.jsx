@@ -5,7 +5,7 @@ import { UsersContext } from "../../contex/UsersContex"
 import { useContext } from "react"
 
 
-const AgendarTurno= () => {
+const Schedule= () => {
 
     const {createAppointment} = useContext(UsersContext)
 
@@ -44,7 +44,7 @@ const AgendarTurno= () => {
 
     return(
         <div>
-            <h1>AgendarTurno</h1>
+            <h1>Agendar Turno</h1>
             <form onSubmit={formik.handleSubmit}>
 
                 <div>
@@ -113,4 +113,4 @@ const AgendarTurno= () => {
 
 
 
-export default AgendarTurno
+export default Schedule

@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { UsersContext } from "../../contex/UsersContex";
 import Swal from "sweetalert2"
 
-const Turno = ({ id, date, time, status }) => {
+const Appointment = ({ id, date, time, status }) => {
 
     const { cancelAppointment} = useContext(UsersContext);
 
@@ -25,7 +25,6 @@ const Turno = ({ id, date, time, status }) => {
     } 
   
 
-
   return (
     <>
       <div>
@@ -43,16 +42,16 @@ const Turno = ({ id, date, time, status }) => {
           <strong>Estado:</strong> <span>{status}</span>
         </p>
       </div>
-      <button onClick={handleCancel}>Cancelar Turno</button>
+      <button onClick={handleCancel}>Cancelar</button>
     </>
   );
 };
 
-Turno.propTypes = {
+Appointment.propTypes = {
   id: PropTypes.number.isRequired,
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
 };
 
-export default Turno;
+export default Appointment;

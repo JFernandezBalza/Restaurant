@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
-import Turno from "../../components/Turno/Turno";
+import Appointment from "../../components/Appointment/Appointment";
 import { UsersContext } from "../../contex/UsersContex";
 
-const MisTurnos = () => {
+const MyAppointments = () => {
 
   const {getUserAppointments, user, userAppointments} =useContext(UsersContext)
 
@@ -19,7 +19,7 @@ const MisTurnos = () => {
       <div>
         {
         Array.isArray(userAppointments) && userAppointments.length > 0 ? userAppointments.map( (turno) => (
-          <Turno
+          <Appointment
               key={turno.id}
               id={turno.id}
               date={turno.date}
@@ -34,4 +34,4 @@ const MisTurnos = () => {
   );
 };
 
-export default MisTurnos;
+export default MyAppointments;

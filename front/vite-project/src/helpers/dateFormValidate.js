@@ -1,5 +1,3 @@
-
-
 const isValidTime= (time)=>{
     const [hour,minute]= time.split(':').map(Number)
     const totalMinutes= hour * 60 + minute
