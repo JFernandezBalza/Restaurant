@@ -46,6 +46,7 @@ export const registerAppointmentsService = async (
   });
   return await AppointmentRepository.save(newAppointment);
 };
+
 export const cancelStatusAppointmentsService = async (
   id: string
 ): Promise<void> => {

@@ -1,5 +1,3 @@
-import Nabvar from "../../components/Navbar/Nabvar";
-
 function Home() {
   return (
     <>

@@ -28,6 +28,7 @@ const Login = () => {
           title: "Logueado Correctamente",
         });
         navigate("/");
+      // eslint-disable-next-line no-unused-vars
       } catch (error) {
         Swal.fire({
           icon: "error",

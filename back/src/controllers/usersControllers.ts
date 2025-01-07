@@ -8,9 +8,9 @@ import {
 import {
   IUserCredentialDTO,
   IUserDTO,
-  IUserLoginDto,
+  IUserLoginDTO,
   IUserRegisterDTO,
-} from "../dto/userDto";
+} from "../dto/UserDTO";
 import { User } from "../entities/User.entity";
 import { errorCatch } from "../utils/errorCatch";
 
@@ -49,7 +49,7 @@ const loginUsersController = async (
   req: Request<unknown, unknown, IUserCredentialDTO>,
   res: Response
 ): Promise<void> => {
-  const serviceResponse: IUserLoginDto = await loginUsersService(req.body);
+  const serviceResponse: IUserLoginDTO = await loginUsersService(req.body);
   res.status(200).json(serviceResponse);
 };
 

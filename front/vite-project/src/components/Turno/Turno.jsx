@@ -1,5 +1,31 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import PropTypes from "prop-types";
+import { useContext } from "react";
+import { UsersContext } from "../../contex/UsersContex";
+import Swal from "sweetalert2"
+
 const Turno = ({ id, date, time, status }) => {
+
+    const { cancelAppointment} = useContext(UsersContext);
+
+    const handleCancel= async () => {
+      try {
+        await cancelAppointment(id)
+        Swal.fire({
+          icon: "warning",
+          color: "red",
+          title: "Turno cancelado con exito"
+        })
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "No se pudo cancelar el turno, vuelva a intentarlo"
+        })
+      }
+    } 
+  
+
+
   return (
     <>
       <div>
@@ -17,8 +43,16 @@ const Turno = ({ id, date, time, status }) => {
           <strong>Estado:</strong> <span>{status}</span>
         </p>
       </div>
+      <button onClick={handleCancel}>Cancelar Turno</button>
     </>
   );
+};
+
+Turno.propTypes = {
+  id: PropTypes.number.isRequired,
+  date: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
 };
 
 export default Turno;

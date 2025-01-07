@@ -11,7 +11,7 @@ const crypPassword = async (pass: string): Promise<string> => {
   return hasHex;
 };
 
-const checkUserExists = async (username: string): Promise<void> => {
+const checkUserExist = async (username: string): Promise<void> => {
   const credentialsFound: Credential | null =
     await CredentialRepository.findOne({ where: { username } });
   if (credentialsFound)
@@ -25,7 +25,7 @@ export const getCredentialsService = async (
   username: string,
   password: string
 ): Promise<Credential> => {
-  await checkUserExists(username);
+  await checkUserExist(username);
   const passwordEncrypted = await crypPassword(password);
   const objectCredentials: Credential = entityManager.create(Credential, {
     username,

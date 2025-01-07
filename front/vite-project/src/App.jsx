@@ -8,6 +8,7 @@ import Register from "./views/Register/Register"
 import NotFound from "./views/NotFound/NotFound";
 import styles from "./App.module.css";
 import { UsersContext } from "./contex/UsersContex";
+import AgendarTurno from "./components/AgendarTurno/AgendarTurno";
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
 
   useEffect(() => {
 
-    const validRoutes= ["/", "/login", "/register", "/misturnos"]
+    const validRoutes= ["/", "/login", "/register", "/misturnos", "/agendarturno"]
 
     if(!validRoutes.includes(location.pathname))setisNotFound(true)
       else setisNotFound(false)
@@ -49,7 +50,7 @@ function App() {
       <>
       { !isNotFound && (
         <header>
-          <span>Restaurant</span>
+          <span>GastroBar BellaVista</span>
           <Nabvar />
         </header>
       )}
@@ -57,6 +58,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/misturnos" element={<MisTurnos/>} />
+          <Route path="/agendarturno" element={<AgendarTurno/>} />
           <Route path="*" element={<NotFound/>} />
         </Routes>
       </main>

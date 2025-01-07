@@ -23,7 +23,7 @@ export const AppointmentRepository = AppDataSource.getRepository(
 
     if (appointmentDateCh < nowInCh) {
       throw new Error(
-        "No se pueden agendar turnos en fechas anteriores o la reserva de turnos debe ser con al menos 24 horas de antelación"
+        "No se pueden agendar turnos en fechas anteriores"
       );
     }
 

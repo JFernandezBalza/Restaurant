@@ -12,7 +12,7 @@ export interface IUserCredentialDTO {
   password: string;
 }
 
-export interface IUserLoginDto {
+export interface IUserLoginDTO {
   login: boolean;
   user: IUserDataLoginDTO;
 }

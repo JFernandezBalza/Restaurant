@@ -2,9 +2,9 @@ import { AppDataSource } from "../config/data-source";
 import {
   IUserCredentialDTO,
   IUserDTO,
-  IUserLoginDto,
+  IUserLoginDTO,
   IUserRegisterDTO,
-} from "../dto/userDto";
+} from "../dto/UserDTO";
 import { Credential } from "../entities/Credential.entity";
 import { User } from "../entities/User.entity";
 import { UserRepository } from "../repositories/User.Repository";
@@ -51,7 +51,7 @@ export const registerUsersService = async (
 
 export const loginUsersService = async (
   userCredentials: IUserCredentialDTO
-): Promise<IUserLoginDto> => {
+): Promise<IUserLoginDTO> => {
   const credentialId: number | undefined = await checkUserCredentials(
     userCredentials.username,
     userCredentials.password

@@ -28,6 +28,10 @@ function Navbar() {
           <li className={styles.menuItem}>
             <Link to="/misturnos">Mis Turnos</Link>
           </li>
+          <li className={styles.menuItem}>
+            <Link to="/agendarturno">Agendar Turno</Link>
+          </li>
+
           <li className={styles.menuItem} onClick={handleLogOut}>
             <Link to="/login">LogOut</Link>
           </li>

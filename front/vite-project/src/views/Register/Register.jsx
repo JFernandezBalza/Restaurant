@@ -167,7 +167,7 @@ const Register = () => {
           !formik.values.username ||
           !formik.values.password
         }
-      >
+        >
         Submit
       </button>
       <br />
