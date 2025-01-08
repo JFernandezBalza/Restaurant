@@ -51,10 +51,7 @@ function App() {
           ): (
       <>
       { !isNotFound && (
-        <header className={styles.header}>
-          <span>GastroBar BellaVista</span>
           <Nabvar />
-        </header>
       )}
       <main className={styles.main2}>
         <Routes>

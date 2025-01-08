@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 import PropTypes from "prop-types";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UsersContext } from "../../contex/UsersContex";
 import Swal from "sweetalert2"
+import styles from "./Appointment.module.css"
 
 const Appointment = ({ id, date, time, status }) => {
 
     const { cancelAppointment} = useContext(UsersContext);
+    const [currentStatus, setCurrentStatus] = useState(status);
 
     const handleCancel= async () => {
       try {
@@ -16,6 +18,7 @@ const Appointment = ({ id, date, time, status }) => {
           color: "red",
           title: "Turno cancelado con exito"
         })
+        setCurrentStatus("cancel");
       } catch (error) {
         Swal.fire({
           icon: "error",
@@ -27,6 +30,7 @@ const Appointment = ({ id, date, time, status }) => {
 
   return (
     <>
+    <div className={styles.container}>
       <div>
         <h3>Turno # {id} </h3>
         <span></span>
@@ -42,7 +46,9 @@ const Appointment = ({ id, date, time, status }) => {
           <strong>Estado:</strong> <span>{status}</span>
         </p>
       </div>
-      <button onClick={handleCancel}>Cancelar</button>
+      <button onClick={handleCancel}
+      disabled= {currentStatus === "cancel"} className={styles.button} >Cancelar</button>
+    </div>
     </>
   );
 };

@@ -12,7 +12,7 @@ const MyAppointments = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <div>
         <h1 className= {styles.title} >Mis turnos.</h1>
       </div>
@@ -32,7 +32,7 @@ const MyAppointments = () => {
         )}
       </div>
       
-    </div>
+    </section>
   );
 };
 

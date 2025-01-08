@@ -3,6 +3,7 @@ import { dateFormValidate } from "../../helpers/dateFormValidate"
 import Swal from "sweetalert2"
 import { UsersContext } from "../../contex/UsersContex"
 import { useContext } from "react"
+import styles from "./Schedule.module.css"
 
 
 const Schedule= () => {
@@ -43,7 +44,7 @@ const Schedule= () => {
 
 
     return(
-        <div>
+        <div className= {styles.container}>
             <h1>Agendar Turno</h1>
             <form onSubmit={formik.handleSubmit}>
 
@@ -56,6 +57,7 @@ const Schedule= () => {
                         min={new Date().toISOString().split("T")[0]}
                         onChange={formik.handleChange}
                         value= {formik.values.date}
+                        className= {styles.input}
                         />
                         {
                             formik.errors.date ? ( 
@@ -78,6 +80,7 @@ const Schedule= () => {
                         name="time"
                         onChange={formik.handleChange}
                         value= {formik.values.time}
+                        className= {styles.input}
                         />
                         {
                             formik.errors.time ? ( 
@@ -94,6 +97,7 @@ const Schedule= () => {
                 <button 
                 type="submit"
                 disabled= {Object.keys(formik.errors).length > 0}
+                className={styles.submitButton}
                 >
                     Agendar
                 </button>

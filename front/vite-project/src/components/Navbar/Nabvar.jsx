@@ -21,6 +21,8 @@ function Navbar() {
   return (
     <div>
       <nav className={styles.navbar}>
+        <span className={styles.name}>GastroBar BellaVista <img src="https://monastrell.com/wp-content/uploads/ESTRELLA_.png" alt="star micheline" className={styles.imgStar} /></span>
+        
         <ul className={styles.menu}>
           <li className={styles.menuItem}>
             <Link to="/">Home</Link>

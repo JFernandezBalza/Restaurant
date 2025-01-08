@@ -45,7 +45,7 @@ export const UsersProvider= ( {children} ) => {
         
         const userAppointmentsUpdate= userAppointments.map(appointment => {
             if(appointment.id === appointmentId){
-                const appointmentUpdate= {...appointment, status: "cancelled"}
+                const appointmentUpdate= {...appointment, status: "cancel"}
                 return appointmentUpdate
             }else return appointment
         })
