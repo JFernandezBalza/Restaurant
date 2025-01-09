@@ -1,7 +1,7 @@
 .container{
     width: 90%;
     height: 100%;
-    margin: 2em;
+    margin: 5em 10em;
 }
 
 .title{
@@ -11,11 +11,10 @@
     color: antiquewhite;
     margin: 1em;
     font-style: italic;
-    font-size: 40px;
+    font-size: 50px;
 }
 
 .card{
-
     padding: 3em;
     border-radius: 3em;
     color: rgba(0, 0, 0, 0.89); 

@@ -41,12 +41,12 @@ function App() {
         {
           !user ? (
             <main className={styles.main}>
-              <formulary className={styles.formulary}>
+              <div className={styles.formulary}>
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register/>} />
             </Routes>
-              </formulary>
+              </div>
             </main>
           ): (
       <>

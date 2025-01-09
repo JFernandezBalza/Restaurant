@@ -60,7 +60,7 @@ export const AppointmentRepository = AppDataSource.getRepository(
 
     if (appointmenFound) {
       throw new Error(
-        `El turno con fecha: ${date} y hora ${time} ya existe para el usuario con id: ${userId}`
+        `El turno con fecha: ${date} y hora ${time} ya existe para este usuario`
       );
     }
   },

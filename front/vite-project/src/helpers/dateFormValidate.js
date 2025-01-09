@@ -7,21 +7,27 @@ const isValidTime= (time)=>{
     return totalMinutes >= startTiime && totalMinutes < endTiime
 }
 
-
 export const dateFormValidate = (inputs) => {
 
     const errors= {};
     const {date, time} = inputs;
-    const selectDateTime = new Date(`${date}T${time}`);
-    const now = new Date();
-    const oursLeter= new Date(now.getTime() + 24 * 60 * 60 * 1000);
+    
+    console.log(date);
+    console.log(time);
 
+    const selectDateTime = new Date(`${date}T${time}`);  
+    const now = new Date();
+    const oursLater= new Date(now.getTime() -3 * 60 * 60 * 1000);
+
+    console.log("selectDateTime:", selectDateTime);  
+    console.log("now:", now);  
+    console.log("oursLater:", oursLater);  
 
     if(!date){
         errors.date= "La Fecha es olbigatoria"
     }else if(selectDateTime < now ){
         errors.date= "La Fecha debe ser mayor a la actual"
-    }else if(selectDateTime < oursLeter){
+    }else if(selectDateTime < oursLater){
         errors.date= "No se pueden agendar citas con menos de 24hrs de antelación"
     }else if(selectDateTime.getDay() === 0 ||
     selectDateTime.getDay() === 6){
@@ -31,8 +37,9 @@ export const dateFormValidate = (inputs) => {
     if(!time){
         errors.time= "La Hora es olbigatoria"
     }else if(!isValidTime(time)){
-        errors.time= "La Hora debe estar en el rango de 8 am a 5 pm"
+        errors.time= "La Hora debe estar en el rango de 8:00 a 17:00 "
     }
 
     return errors
 }
+

@@ -32,7 +32,7 @@ const Schedule= () => {
                 Swal.fire({
                     icon: "error",
                     title: `${error.response.data.detail}`,
-                    text: "Por favor, intenta de nuevo",
+                    text: "Por favor, intenta de nuevo"
                 })                
             } finally{
                 formik.resetForm()
@@ -52,7 +52,7 @@ const Schedule= () => {
                     <label >
                         <input 
                         id="date"
-                        type="date"
+                        type= "date"
                         name="date"
                         min={new Date().toISOString().split("T")[0]}
                         onChange={formik.handleChange}
@@ -106,15 +106,6 @@ const Schedule= () => {
         </div>
     )
 
-
-
-
-
 }
-
-
-
-
-
 
 export default Schedule

@@ -74,6 +74,7 @@ export const UsersProvider= ( {children} ) => {
         cancelAppointment,
         createAppointment
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }), [user, userAppointments])
 
 

@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UsersContext } from "../../contex/UsersContex";
+import styles from "./Register.module.css"
 
 const Register = () => {
   const { registerUser } = useContext(UsersContext);
@@ -64,13 +65,15 @@ const Register = () => {
   });
 
   return (
+    
+    <div className= {styles.main}>
     <form onSubmit={formik.handleSubmit}>
       <h2>Formulario de Registro.</h2>
 
-      <div>
+      <div className= {styles.input}>
         <label>Nombre:</label>
         <input
-          className=""
+          className={styles.cas}
           type="text"
           name="name"
           placeholder="Tu Nombre"
@@ -82,10 +85,10 @@ const Register = () => {
         ) : null}
       </div>
 
-      <div>
+      <div className= {styles.input}>
         <label>Email:</label>
         <input
-          className=""
+          className={styles.cas}
           type="text"
           name="email"
           placeholder="@mail.com"
@@ -97,10 +100,10 @@ const Register = () => {
         ) : null}
       </div>
 
-      <div>
+      <div className= {styles.input}>
         <label>Fecha de Nacimiento:</label>
         <input
-          className=""
+          className={styles.cas}
           type="date"
           name="birthdate"
           onChange={formik.handleChange}
@@ -111,10 +114,10 @@ const Register = () => {
         ) : null}
       </div>
 
-      <div>
+      <div className= {styles.input}>
         <label>nDni:</label>
         <input
-          className=""
+          className={styles.cas}
           type="text"
           name="nDni"
           onChange={formik.handleChange}
@@ -125,10 +128,10 @@ const Register = () => {
         ) : null}
       </div>
 
-      <div>
+      <div className= {styles.input}>
         <label>UserName:</label>
         <input
-          className=""
+          className={styles.cas}
           type="text"
           name="username"
           placeholder="Nombre de Usuario"
@@ -140,10 +143,10 @@ const Register = () => {
         ) : null}
       </div>
 
-      <div>
+      <div className= {styles.input}>
         <label>Password:</label>
         <input
-          className=""
+          className={styles.cas}
           type="password"
           name="password"
           placeholder="********"
@@ -156,7 +159,7 @@ const Register = () => {
       </div>
 
       <button
-        className=""
+        className={styles.buton}
         type="submit"
         disabled={
           Object.keys(formik.errors).length > 0 ||
@@ -171,10 +174,11 @@ const Register = () => {
         Submit
       </button>
       <br />
-      <label>
+      <label className= {styles.input}>
         Ya tienes cuenta? <Link to="/login">Login</Link>
       </label>
     </form>
+    </div>
   );
 };
 

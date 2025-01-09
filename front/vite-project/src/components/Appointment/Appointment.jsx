@@ -32,8 +32,8 @@ const Appointment = ({ id, date, time, status }) => {
     <>
     <div className={styles.container}>
       <div>
-        <h3>Turno # {id} </h3>
-        <span></span>
+        <h3 className={styles.turn}>Turno # {id} </h3>
+
       </div>
       <div>
         <p>
@@ -43,7 +43,7 @@ const Appointment = ({ id, date, time, status }) => {
           <strong>Hora:</strong> <span>{time}</span>
         </p>
         <p>
-          <strong>Estado:</strong> <span>{status}</span>
+          <strong>Estado:</strong> <span className={styles.status}>{status}</span>
         </p>
       </div>
       <button onClick={handleCancel}
