@@ -6,7 +6,7 @@ import {
   getAppointmentsService,
   registerAppointmentsService,
 } from "../services/appointmentsService";
-import { Appointment } from "../entities/Appointments.entitiy";
+import { Appointment } from "../entities/Appointments.entity";
 import { errorCatch } from "../utils/errorCatch";
 
 const getAppointmentsController = async (

@@ -60,4 +60,4 @@ __decorate([
 exports.Appointment = Appointment = __decorate([
     (0, typeorm_1.Entity)("appointments")
 ], Appointment);
-//# sourceMappingURL=Appointments.entitiy.js.map
+//# sourceMappingURL=Appointments.entity.js.map

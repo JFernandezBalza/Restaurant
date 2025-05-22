@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const Credential_entity_1 = require("./Credential.entity");
-const Appointments_entitiy_1 = require("./Appointments.entitiy");
+const Appointments_entity_1 = require("./Appointments.entity");
 let User = class User {
     id;
     name;
@@ -51,7 +51,7 @@ __decorate([
     __metadata("design:type", Credential_entity_1.Credential)
 ], User.prototype, "credentials", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Appointments_entitiy_1.Appointment, (appointments) => appointments.user, {
+    (0, typeorm_1.OneToMany)(() => Appointments_entity_1.Appointment, (appointments) => appointments.user, {
         nullable: true,
     }),
     __metadata("design:type", Array)

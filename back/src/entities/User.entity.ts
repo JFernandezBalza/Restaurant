@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { Credential } from "./Credential.entity";
-import { Appointment } from "./Appointments.entitiy";
+import { Appointment } from "./Appointments.entity";
 
 @Entity("users")
 export class User {

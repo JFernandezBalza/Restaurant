@@ -1,5 +1,5 @@
 import { IAppointmentRegisterDTO } from "../dto/AppointmentDTO";
-import { Appointment } from "../entities/Appointments.entitiy";
+import { Appointment } from "../entities/Appointments.entity";
 import { Status } from "../interface/IAppointments";
 import { AppointmentRepository } from "../repositories/Appointment.Repository";
 import { CustomError } from "../utils/customError";
