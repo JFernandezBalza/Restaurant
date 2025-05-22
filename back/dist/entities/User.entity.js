@@ -14,6 +14,15 @@ const typeorm_1 = require("typeorm");
 const Credential_entity_1 = require("./Credential.entity");
 const Appointments_entitiy_1 = require("./Appointments.entitiy");
 let User = class User {
+    id;
+    name;
+    email;
+    birthdate;
+    nDni;
+    credentials;
+    appointments;
+    createdAt;
+    update;
 };
 exports.User = User;
 __decorate([
@@ -58,3 +67,4 @@ __decorate([
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)("users")
 ], User);
+//# sourceMappingURL=User.entity.js.map

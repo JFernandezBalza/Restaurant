@@ -32,3 +32,4 @@ server.use((err, req, res, next) => {
         res.status(400).json(errorMessage);
 });
 exports.default = server;
+//# sourceMappingURL=server.js.map

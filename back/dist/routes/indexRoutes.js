@@ -10,3 +10,4 @@ const router = (0, express_1.Router)();
 router.use("/users", usersRoutes_1.default);
 router.use("/appointments", appointmentsRoutes_1.default);
 exports.default = router;
+//# sourceMappingURL=indexRoutes.js.map

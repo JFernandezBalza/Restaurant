@@ -7,3 +7,4 @@ const errorCatch = (controller) => {
     };
 };
 exports.errorCatch = errorCatch;
+//# sourceMappingURL=errorCatch.js.map

@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentRepository = void 0;
 const data_source_1 = require("../config/data-source");
@@ -25,7 +16,7 @@ exports.AppointmentRepository = data_source_1.AppDataSource.getRepository(Appoin
         }
         const nowInCh = new Date(now.getTime() - 3 * 60 * 60 * 1000);
         if (appointmentDateCh < nowInCh) {
-            throw new Error("No se pueden agendar turnos en fechas anteriores o la reserva de turnos debe ser con al menos 24 horas de antelación");
+            throw new Error("No se pueden agendar turnos en fechas anteriores");
         }
         const timeDifference = appointmentDateCh.getTime() - nowInCh.getTime();
         const hoursDifference = timeDifference / (1000 * 60 * 60);
@@ -36,21 +27,20 @@ exports.AppointmentRepository = data_source_1.AppDataSource.getRepository(Appoin
             throw new Error("Los turnos deben agendarse entre las 8hrs y las 17hrs");
         }
     },
-    validateExistingAppointment: function (userId, date, time) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const [hours, minutes] = time.split(":").map(Number);
-            const appointmentDate = new Date(date);
-            appointmentDate.setHours(hours, minutes, 0);
-            const appointmenFound = yield this.findOne({
-                where: {
-                    user: { id: userId },
-                    date: appointmentDate,
-                    time: time,
-                },
-            });
-            if (appointmenFound) {
-                throw new Error(`El turno con fecha: ${date} y hora ${time} ya existe para el usuario con id: ${userId}`);
-            }
+    validateExistingAppointment: async function (userId, date, time) {
+        const [hours, minutes] = time.split(":").map(Number);
+        const appointmentDate = new Date(date);
+        appointmentDate.setHours(hours, minutes, 0);
+        const appointmenFound = await this.findOne({
+            where: {
+                user: { id: userId },
+                date: appointmentDate,
+                time: time,
+            },
         });
+        if (appointmenFound) {
+            throw new Error(`El turno con fecha: ${date} y hora ${time} ya existe para este usuario`);
+        }
     },
 });
+//# sourceMappingURL=Appointment.Repository.js.map

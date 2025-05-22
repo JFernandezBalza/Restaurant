@@ -15,3 +15,4 @@ exports.AppDataSource = new typeorm_1.DataSource({
     entities: envs_1.DB_ENTITIES,
     dropSchema: envs_1.DB_DROP,
 });
+//# sourceMappingURL=data-source.js.map

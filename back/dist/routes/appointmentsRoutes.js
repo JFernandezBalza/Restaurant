@@ -11,3 +11,4 @@ appointmentRouter.get("/:id", (req, res, next) => appointmentsControllers_1.defa
 appointmentRouter.post("/schedule", (req, res, next) => appointmentsControllers_1.default.registerAppointmentsController(req, res, next));
 appointmentRouter.put("/cancel/:id", (req, res, next) => appointmentsControllers_1.default.cancelStatusAppointmentsController(req, res, next));
 exports.default = appointmentRouter;
+//# sourceMappingURL=appointmentsRoutes.js.map

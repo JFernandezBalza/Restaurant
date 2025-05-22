@@ -17,3 +17,4 @@ data_source_1.AppDataSource.initialize()
     .catch((error) => {
     console.log(error);
 });
+//# sourceMappingURL=index.js.map

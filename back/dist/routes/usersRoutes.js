@@ -11,3 +11,4 @@ usersRouter.get("/:id", (req, res, next) => usersControllers_1.default.getUsersB
 usersRouter.post("/register", (req, res, next) => usersControllers_1.default.registerUsersController(req, res, next));
 usersRouter.post("/login", (req, res, next) => usersControllers_1.default.loginUsersController(req, res, next));
 exports.default = usersRouter;
+//# sourceMappingURL=usersRoutes.js.map

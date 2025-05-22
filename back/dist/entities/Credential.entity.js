@@ -13,6 +13,12 @@ exports.Credential = void 0;
 const typeorm_1 = require("typeorm");
 const User_entity_1 = require("./User.entity");
 let Credential = class Credential {
+    id;
+    username;
+    password;
+    user;
+    createdAt;
+    update;
 };
 exports.Credential = Credential;
 __decorate([
@@ -42,3 +48,4 @@ __decorate([
 exports.Credential = Credential = __decorate([
     (0, typeorm_1.Entity)("credentials")
 ], Credential);
+//# sourceMappingURL=Credential.entity.js.map

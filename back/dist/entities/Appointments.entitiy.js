@@ -14,6 +14,13 @@ const typeorm_1 = require("typeorm");
 const User_entity_1 = require("./User.entity");
 const IAppointments_1 = require("../interface/IAppointments");
 let Appointment = class Appointment {
+    id;
+    date;
+    time;
+    status;
+    user;
+    createdAt;
+    update;
 };
 exports.Appointment = Appointment;
 __decorate([
@@ -53,3 +60,4 @@ __decorate([
 exports.Appointment = Appointment = __decorate([
     (0, typeorm_1.Entity)("appointments")
 ], Appointment);
+//# sourceMappingURL=Appointments.entitiy.js.map

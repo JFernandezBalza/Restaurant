@@ -16,11 +16,17 @@ exports.DB_PASSWORD = process.env.DB_PASSWORD;
 exports.DB_DATABASE = process.env.DB_DATABASE;
 exports.DB_SYNC = process.env.DB_SYNC
     ? process.env.DB_SYNC === "true"
-    : true;
+    : false;
 exports.DB_LOGGING = process.env.DB_LOGGING
     ? process.env.DB_LOGGING === "true"
     : true;
-exports.DB_ENTITIES = process.env.DB_ENTITIES ? process.env.DB_ENTITIES.split(",") : ["src/entities/**/*.ts"];
+const isProduction = process.env.NODE_ENV === 'production';
+exports.DB_ENTITIES = [
+    isProduction ? 'dist/entities/**/*.js' : 'src/entities/**/*.ts',
+    // Si tienes migraciones y las gestionas de forma similar, agrégalas aquí también
+    // isProduction ? 'dist/migrations/**/*.js' : 'src/migrations/**/*.ts',
+];
 exports.DB_DROP = process.env.DB_DROP
     ? process.env.DB_DROP === "true"
-    : true;
+    : false;
+//# sourceMappingURL=envs.js.map
