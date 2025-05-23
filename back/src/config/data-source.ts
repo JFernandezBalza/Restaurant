@@ -24,4 +24,5 @@ export const AppDataSource = new DataSource({
   logging: DB_LOGGING,
   entities: DB_ENTITIES,
   dropSchema: DB_DROP,
+  ssl: { rejectUnauthorized: false },
 });
