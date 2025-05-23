@@ -6,20 +6,28 @@ export const PORT: number = process.env.PORT
   ? parseInt(process.env.PORT, 10)
   : 3000;
 
-// Obtener la DATABASE_URL si existe, si no, usa una cadena vacía para evitar errores
-const databaseUrl = process.env.DATABASE_URL || '';
-let parsedDbUrl: ReturnType<typeof parseConnectionString> | undefined;
+  const databaseUrl = process.env.DATABASE_URL || '';
+  let parsedDbUrl: ReturnType<typeof parseConnectionString> | undefined;
 
-// Intentar parsear la DATABASE_URL si está presente
-if (databaseUrl) {
-  try {
-    parsedDbUrl = parseConnectionString(databaseUrl);
-  } catch (e) {
-    console.error('Error parsing DATABASE_URL:', e);
-    // Manejar el error, quizás fallar el inicio de la aplicación o usar valores por defecto
-    parsedDbUrl = undefined;
+  if (databaseUrl) {
+    try {
+      parsedDbUrl = parseConnectionString(databaseUrl);
+    } catch (e) {
+      console.error('Error parsing DATABASE_URL:', e);
+      parsedDbUrl = undefined;
+    }
   }
-}
+
+  console.log('DEBUGGING ENV VARS:');
+  console.log('DATABASE_URL (from envs.ts):', databaseUrl);
+  console.log('Parsed DB Host:', parsedDbUrl?.host);
+  console.log('Parsed DB Port:', parsedDbUrl?.port);
+  console.log('Parsed DB User:', parsedDbUrl?.user);
+  console.log(
+    'Parsed DB Password (first 5 chars):',
+    parsedDbUrl?.password ? parsedDbUrl.password.substring(0, 5) + '...' : ''
+  );
+  console.log('Parsed DB Database:', parsedDbUrl?.database);
 
 // Define las variables individuales usando los valores parseados si existen,
 // o las variables individuales de ENV (para desarrollo local sin DATABASE_URL),
