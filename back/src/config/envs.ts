@@ -24,8 +24,6 @@ export const DB_LOGGING: boolean = process.env.DB_LOGGING
 
   export const DB_ENTITIES: string[] = [
     isProduction ? 'dist/entities/**/*.js' : 'src/entities/**/*.ts',
-    // Si tienes migraciones y las gestionas de forma similar, agrégalas aquí también
-    // isProduction ? 'dist/migrations/**/*.js' : 'src/migrations/**/*.ts',
   ];
 export const DB_DROP: boolean = process.env.DB_DROP
   ? process.env.DB_DROP === "true"
