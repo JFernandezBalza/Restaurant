@@ -12,6 +12,7 @@ import {
   DB_USERNAME,
 } from "./envs";
 
+const isProduction = process.env.NODE_ENV === 'production';
 
 export const AppDataSource = new DataSource({
   type: DB_TYPE,
@@ -23,6 +24,9 @@ export const AppDataSource = new DataSource({
   synchronize: DB_SYNC,
   logging: DB_LOGGING,
   entities: DB_ENTITIES,
+  migrations: [
+    isProduction ? 'dist/migrations/**/*.js' : 'src/migrations/**/*.ts',
+  ],
   dropSchema: DB_DROP,
-  ssl: { rejectUnauthorized: false },
+  ssl: isProduction ? { rejectUnauthorized: false } : false,
 });
