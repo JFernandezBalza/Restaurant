@@ -12,7 +12,8 @@ import {
   DB_USERNAME,
 } from "./envs";
 
-const isProduction = process.env.NODE_ENV === 'production';
+// No necesitamos 'isProduction' aquí para el SSL si lo basamos en DB_HOST
+// const isProduction = process.env.NODE_ENV === 'production';
 
 export const AppDataSource = new DataSource({
   type: DB_TYPE,
@@ -25,8 +26,12 @@ export const AppDataSource = new DataSource({
   logging: DB_LOGGING,
   entities: DB_ENTITIES,
   migrations: [
-    isProduction ? 'dist/migrations/**/*.js' : 'src/migrations/**/*.ts',
+    // Asegúrate de que esta lógica de rutas sea correcta para tus archivos TS/JS
+    process.env.NODE_ENV === 'production' ? 'dist/migrations/**/*.js' : 'src/migrations/**/*.ts',
   ],
   dropSchema: DB_DROP,
-  ssl: isProduction ? { rejectUnauthorized: false } : false,
+  // **¡MODIFICACIÓN CLAVE AQUÍ!**
+  // Solo habilita SSL si hay un host de DB definido (será el de Render)
+  // y si no estás en un entorno de desarrollo local específico que no lo necesita.
+  ssl: DB_HOST ? { rejectUnauthorized: false } : false,
 });
