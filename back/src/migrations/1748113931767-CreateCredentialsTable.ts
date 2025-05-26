@@ -46,7 +46,6 @@ export class CreateCredentialsTable1748113931767 implements MigrationInterface {
                 "id" SERIAL NOT NULL,
                 "date" date NOT NULL,
                 "time" time NOT NULL,
-                "description" character varying(255) NOT NULL,
                 "status" character varying(50) NOT NULL DEFAULT 'active', -- Asume un string y un valor por defecto
                 "userId" integer,
                 "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
