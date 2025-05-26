@@ -8,7 +8,14 @@
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec ts-node src/index.ts",
     "build:watch": "tsc -w",
-    "lint": "eslint . --ext.ts"
+    "lint": "eslint . --ext.ts",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d ./src/config/data-source.ts",
+    "migration:run": "npm run typeorm migration:run",
+    "migration:generate": "npm run typeorm migration:generate -- -n",
+    "migration:create": "npm run typeorm migration:create -- -n",
+    "migration:revert": "npm run typeorm migration:revert",
+    "schema:sync": "npm run typeorm schema:sync",
+    "schema:drop": "npm run typeorm schema:drop"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +33,7 @@
     "globals": "^15.12.0",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.14.0"
   },

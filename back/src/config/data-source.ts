@@ -1,4 +1,6 @@
-import { DataSource } from "typeorm";
+// src/config/data-source.ts
+import 'reflect-metadata';
+import { DataSource } from 'typeorm';
 import {
   DB_DATABASE,
   DB_DROP,
@@ -10,10 +12,7 @@ import {
   DB_SYNC,
   DB_TYPE,
   DB_USERNAME,
-} from "./envs";
-
-// No necesitamos 'isProduction' aquí para el SSL si lo basamos en DB_HOST
-// const isProduction = process.env.NODE_ENV === 'production';
+} from './envs'; // Importa las variables ya parseadas de envs.ts
 
 export const AppDataSource = new DataSource({
   type: DB_TYPE,
@@ -23,15 +22,19 @@ export const AppDataSource = new DataSource({
   password: DB_PASSWORD,
   database: DB_DATABASE,
   synchronize: DB_SYNC,
-  logging: DB_LOGGING,
-  entities: DB_ENTITIES,
+  logging: DB_LOGGING ? ['error'] : false, // Asegúrate de que esto sea un array o false. DB_LOGGING en envs.ts es boolean.
+  entities: DB_ENTITIES, // Ya es un array de strings en envs.ts
   migrations: [
     // Asegúrate de que esta lógica de rutas sea correcta para tus archivos TS/JS
-    process.env.NODE_ENV === 'production' ? 'dist/migrations/**/*.js' : 'src/migrations/**/*.ts',
+    process.env.NODE_ENV === 'production'
+      ? 'dist/migrations/**/*.js'
+      : 'src/migrations/**/*.ts',
   ],
   dropSchema: DB_DROP,
-  // **¡MODIFICACIÓN CLAVE AQUÍ!**
-  // Solo habilita SSL si hay un host de DB definido (será el de Render)
-  // y si no estás en un entorno de desarrollo local específico que no lo necesita.
-  ssl: DB_HOST ? { rejectUnauthorized: false } : false,
+
+  // **¡MODIFICACIÓN CLAVE PARA EL SSL!**
+  // En desarrollo local (cuando DB_HOST es localhost), generalmente no necesitas SSL.
+  // En producción (Render), probablemente sí.
+  // Usaremos una lógica para decidir si activar SSL.
+  ssl: DB_HOST === 'localhost' ? false : { rejectUnauthorized: false },
 });

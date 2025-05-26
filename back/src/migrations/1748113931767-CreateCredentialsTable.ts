@@ -39,22 +39,21 @@ export class CreateCredentialsTable1748113931767 implements MigrationInterface {
             )
         `);
 
-    // *** THIS IS THE MISSING PART YOU NEED TO ADD ***
     // Create "appointments" table
-    // IMPORTANT: Make sure these columns match your src/entities/Appointment.ts entity exactly!
+    // AÑADIDA LA COLUMNA "status" AQUÍ
     await queryRunner.query(`
             CREATE TABLE "appointments" (
                 "id" SERIAL NOT NULL,
-                "date" date NOT NULL,       -- Example: Adjust type as per your entity
-                "time" time NOT NULL,       -- Example: Adjust type as per your entity
+                "date" date NOT NULL,
+                "time" time NOT NULL,
                 "description" character varying(255) NOT NULL,
-                "userId" integer,           -- This will be the foreign key column
+                "status" character varying(50) NOT NULL DEFAULT 'active', -- Asume un string y un valor por defecto
+                "userId" integer,
                 "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
                 "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
-                CONSTRAINT "PK_YOUR_APPOINTMENTS_TABLE_NAME" PRIMARY KEY ("id") -- Replace PK_... with an actual PK name from your entity if you know it
+                CONSTRAINT "PK_YOUR_APPOINTMENTS_TABLE_NAME" PRIMARY KEY ("id")
             )
         `);
-    // *** END OF MISSING PART ***
 
     // 2. ADD ALL FOREIGN KEYS AFTER ALL TABLES ARE CREATED
 
